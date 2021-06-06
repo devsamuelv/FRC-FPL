@@ -4,37 +4,31 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ClimberDown;
+import frc.robot.commands.ArmScissors;
 import frc.robot.commands.ClimberManual;
-import frc.robot.commands.ClimberUp;
-import frc.robot.commands.CollectorManual;
 import frc.robot.commands.ConveyorAutomated;
 import frc.robot.commands.DriveManual;
-import frc.robot.commands.FPLCommand;
 import frc.robot.commands.LightsController;
 import frc.robot.commands.Scissors;
-import frc.robot.commands.ShootandAimClose;
-import frc.robot.commands.ShootandAimFar;
-import frc.robot.commands.SpinUpAndAim;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Lights;
+import frc.robot.subsystems.Safety;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ScissorRunner;
 
 public class RobotContainer {
   // Subsystems
   private final Base m_base = new Base();
+  private final Safety m_safety = new Safety();
   private final Collector m_collector = new Collector();
+  private final ScissorRunner m_scissorRunner = new ScissorRunner();
   private final Conveyor m_conveyor = new Conveyor();
   private final Climber m_climber = new Climber();
   private final Shooter m_shooter = new Shooter();
@@ -79,7 +73,6 @@ public class RobotContainer {
   public RobotContainer() {
     configureDriverStation();
     configureBaseController();
-    configureOperatorController();
     configurePassiveCommands();
     configureAutoChooser();
   }
@@ -88,39 +81,19 @@ public class RobotContainer {
     SmartDashboard.putNumber("Scissor Speed (Percent)", 30);
   }
 
-  private void configureOperatorController() {
-    // new JoystickButton(gunnerJS, 5).whenHeld(new TurretRotate(m_shooter,
-    // Constants.turretLeft));
-    // new JoystickButton(gunnerJS, 6).whenHeld(new TurretRotate(m_shooter,
-    // Constants.turretRight));
-    // new JoystickButton(gunnerJS, 7).whenHeld(new ShootandAimMid(m_shooter,
-    // m_conveyor));
-    // new JoystickButton(gunnerJS, 8).whenHeld(new ShootandAimFar(m_shooter,
-    // m_conveyor));
-  }
-
   private void configureBaseController() {
-    // BooleanSupplier left = () -> mainJS.getRawButton(1);
-    // BooleanSupplier right = () -> mainJS.getRawButton(3);
-    // DoubleSupplier speed = () -> 0;
-
-    // if (right.getAsBoolean()) {
-    // speed = () -> 0.5;
-    // }
-
-    // if (left.getAsBoolean()) {
-    // speed = () -> -0.5;
-    // }
-
-    // SmartDashboard.putNumber("speed", speed.getAsDouble());
     SmartDashboard.putNumber("axis's", mainJS.getAxisCount());
 
-    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(5)));
-    new JoystickButton(mainJS, 1).whileHeld(new ClimberManual(m_climber, () -> 0, () -> 1));
+    // make sure that on init the scissors are unarmed
+    // m_safety.armScissor(false);
+
+    new JoystickButton(mainJS, 4).whileHeld(new ClimberManual(m_climber, () -> 0, () -> 1));
     new JoystickButton(mainJS, 2).whileHeld(new ClimberManual(m_climber, () -> 0, () -> -1));
-    new JoystickButton(mainJS, 6)
-        .whenPressed(new Scissors(m_base, () -> getScissorSelectedSpeed(), () -> mainJS.getRawButton(5)));
-    // m_climber.setDefaultCommand(new ClimberManual(m_climber, () -> 0, speed));
+
+    new JoystickButton(mainJS, 5).whenPressed(new ArmScissors(m_safety, m_base));
+    new JoystickButton(mainJS, 6).whenPressed(new Scissors(m_scissorRunner, () -> getScissorSelectedSpeed(), m_safety));
+
+    m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
   }
 
   private double getScissorSelectedSpeed() {

@@ -24,15 +24,10 @@ public class Base extends SubsystemBase {
   WPI_TalonFX talonThree = new WPI_TalonFX(Constants.talonThreeCANID);
   WPI_TalonFX talonFour = new WPI_TalonFX(Constants.talonFourCANID);
 
-  CANSparkMax scissors = new CANSparkMax(13, MotorType.kBrushless);
-
   // speed
   // 5.1 sec for 50 feet
   // 5.63
   // 5.86
-
-  // accel
-  //
 
   BufferedWriter wr;
   FileWriter write;
@@ -57,10 +52,6 @@ public class Base extends SubsystemBase {
 
     talonThree.setInverted(true);
     talonFour.setInverted(true);
-  }
-
-  public void runScissors(double _power) {
-    this.scissors.set(_power);
   }
 
   public void tankDriveByJoystick(double speedL, double speedR) {

@@ -4,31 +4,23 @@
 
 package frc.robot.commands;
 
-
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ScissorRunner;
+import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Safety;
 
-public class Scissors extends CommandBase {
-  private final ScissorRunner m_scissors;
+public class ArmScissors extends CommandBase {
+  private final Base m_base;
   private final Safety m_safety;
-  private DoubleSupplier m_speed;
 
-  /** Creates a new Scissors. */
-  public Scissors(ScissorRunner _scissors, DoubleSupplier _m_speed, Safety _safety) {
+  /** Creates a new ArmScissors. */
+  public ArmScissors(Safety _safety, Base _base) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    SmartDashboard.putBoolean("isArmed", false);
-
     this.m_safety = _safety;
-    this.m_scissors = _scissors;
-    this.m_speed = _m_speed;
+    this.m_base = _base;
 
-    addRequirements(m_scissors);
     addRequirements(m_safety);
+    addRequirements(m_base);
   }
 
   // Called when the command is initially scheduled.
@@ -39,20 +31,18 @@ public class Scissors extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_safety.isScissorsArmed()) {
-      m_scissors.runScissors(this.m_speed.getAsDouble());
-    }
+    System.out.println("Arm Scissors");
+    m_safety.armScissor(!m_safety.isScissorsArmed());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

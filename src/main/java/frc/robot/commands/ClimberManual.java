@@ -28,21 +28,19 @@ public class ClimberManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // SmartDashboard.putBoolean("Climber Left Low Switch",
-    // m_climber.getLeftLowLimitSwitch());
     SmartDashboard.putBoolean("Climber Right Low Switch", m_climber.getRightLowLimitSwitch());
     SmartDashboard.putNumber("Climber Left Encoder Value", m_climber.getClimberPos(Constants.leftClimber));
     SmartDashboard.putNumber("Climber Right Encoder Value", m_climber.getClimberPos(Constants.rightClimber));
     SmartDashboard.putNumber("Climber Right Commanded Value", rightSpeed.getAsDouble());
     SmartDashboard.putNumber("Climber Left Commanded Value", leftSpeed.getAsDouble());
-    // if (m_climber.getLeftLowLimitSwitch())
-    // m_climber.resetLeftClimber();
+
     if (m_climber.getRightLowLimitSwitch())
       m_climber.resetRightClimber();
     if (m_climber.getArmed()) {
       m_climber.setSolenoids(Constants.climbersUnlocked);
 
-      if (Math.abs(leftSpeed.getAsDouble()) > 0.2 || (Math.abs(rightSpeed.getAsDouble()) > 0.2)) {
+      if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 || leftSpeed.getAsDouble() < -0.2
+          || rightSpeed.getAsDouble() < -0.2) {
         m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
       } else
         m_climber.driveClimbers(0, 0);

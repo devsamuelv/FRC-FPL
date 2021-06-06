@@ -110,20 +110,21 @@ public class Climber extends SubsystemBase {
 
   // Drive the climber motors seperately at the speeds input
   public void driveClimbers(double leftSpeed, double rightSpeed) {
-    if (leftSpeed < 0)
-      leftSpeed = -leftSpeed * leftSpeed;
-    else
-      leftSpeed = leftSpeed * leftSpeed;
-    if (rightSpeed < 0)
-      rightSpeed = -rightSpeed * rightSpeed;
-    else
-      rightSpeed = rightSpeed * rightSpeed;
+    // if (leftSpeed < 0)
+    // leftSpeed = -leftSpeed * leftSpeed;
+    // else
+    // leftSpeed = leftSpeed * leftSpeed;
+    // if (rightSpeed < 0)
+    // rightSpeed = -rightSpeed * rightSpeed;
+    // else
+    // rightSpeed = rightSpeed * rightSpeed;
 
-    if ((rightSpeed > 0 && getRightLowLimitSwitch())
-        || (rightSpeed < 0 && (getClimberPos(Constants.rightClimber) < Constants.climberMax)))
-      rightClimberMotor.set(0);
-    else
-      rightClimberMotor.set(rightSpeed);
+    // if ((rightSpeed > 0 && getRightLowLimitSwitch())
+    // || (rightSpeed < 0 && (getClimberPos(Constants.rightClimber) <
+    // Constants.climberMax)))
+    // rightClimberMotor.set(0);
+    // else
+    rightClimberMotor.set(rightSpeed);
   }
 
   // Returns the encoder position of the specified climber motor; true = left,
