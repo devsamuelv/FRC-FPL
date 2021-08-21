@@ -7,19 +7,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Safety;
+import frc.robot.subsystems.ScissorRunner;
 
 public class ArmScissors extends CommandBase {
   private final Base m_base;
   private final Safety m_safety;
+  private final ScissorRunner m_runner;
 
   /** Creates a new ArmScissors. */
-  public ArmScissors(Safety _safety, Base _base) {
+  public ArmScissors(Safety _safety, Base _base, ScissorRunner _runner) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this.m_safety = _safety;
     this.m_base = _base;
+    this.m_runner = _runner;
 
     addRequirements(m_safety);
+    addRequirements(m_runner);
     addRequirements(m_base);
   }
 
@@ -32,7 +36,20 @@ public class ArmScissors extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Arm Scissors");
-    m_safety.armScissor(!m_safety.isScissorsArmed());
+
+    if (!m_safety.isScissorsArmed()) {
+      m_safety.armScissor(true);
+    
+      return;
+    }
+    
+    if (m_safety.isScissorsArmed()) {
+      m_safety.armScissor(false);
+      m_runner.runScissors(0);
+    
+      return;
+    }
+
   }
 
   // Called once the command ends or is interrupted.

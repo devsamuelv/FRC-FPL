@@ -42,6 +42,10 @@ public class Scissors extends CommandBase {
     if (m_safety.isScissorsArmed()) {
       m_scissors.runScissors(this.m_speed.getAsDouble());
     }
+    
+    if (!m_safety.isScissorsArmed()) {
+      m_scissors.runScissors(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
