@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -42,7 +41,7 @@ public class Scissors extends CommandBase {
     if (m_safety.isScissorsArmed()) {
       m_scissors.runScissors(this.m_speed.getAsDouble());
     }
-    
+
     if (!m_safety.isScissorsArmed()) {
       m_scissors.runScissors(0);
     }
@@ -57,6 +56,6 @@ public class Scissors extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return !m_safety.isScissorsArmed();
   }
 }
