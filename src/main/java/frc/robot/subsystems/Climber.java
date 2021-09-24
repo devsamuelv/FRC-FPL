@@ -20,11 +20,10 @@ public class Climber extends SubsystemBase {
   // DigitalInput(RobotContainer.climberLeftLowLimitSwitch);
   private DigitalInput rightLowLimitSwitch = new DigitalInput(RobotContainer.climberRightLowLimitSwitch);
 
-  // private CANSparkMax leftClimberMotor = new
-  // CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
+  private CANSparkMax leftClimberMotor = new CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
   private CANSparkMax rightClimberMotor = new CANSparkMax(RobotContainer.climberRightCANID, MotorType.kBrushless);
 
-  // private CANEncoder leftClimberEncoder = new CANEncoder(leftClimberMotor);
+  private CANEncoder leftClimberEncoder = new CANEncoder(leftClimberMotor);
   private CANEncoder rightClimberEncoder = new CANEncoder(rightClimberMotor);
 
   private boolean armed = true;
@@ -81,6 +80,7 @@ public class Climber extends SubsystemBase {
     return rightdone;
   }
 
+  // NOT CONNECTED TO CONTROLLER
   public boolean setClimberPosDown(double right_target_position) {
     boolean rightdone = false;
     SmartDashboard.putNumber("Climber Left Encoder Value", getClimberPos(Constants.leftClimber));
@@ -108,6 +108,7 @@ public class Climber extends SubsystemBase {
     return rightdone;
   }
 
+  // USED
   // Drive the climber motors seperately at the speeds input
   public void driveClimbers(double leftSpeed, double rightSpeed) {
     // if (leftSpeed < 0)
@@ -124,7 +125,9 @@ public class Climber extends SubsystemBase {
     // Constants.climberMax)))
     // rightClimberMotor.set(0);
     // else
+
     rightClimberMotor.set(rightSpeed);
+    leftClimberMotor.set(leftSpeed);
   }
 
   // Returns the encoder position of the specified climber motor; true = left,
@@ -137,10 +140,12 @@ public class Climber extends SubsystemBase {
     return rightLowLimitSwitch.get();
   }
 
+  // NOT CONNECTED TO CONTROLLER
   public void setSolenoids(boolean pos) {
     // leftHoldClamp.set(pos);
   }
 
+  // NOT CONNECTED TO CONTROLLER
   public void setArmed(boolean arm) {
     armed = arm;
   }

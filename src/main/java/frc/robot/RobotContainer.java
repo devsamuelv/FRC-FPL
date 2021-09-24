@@ -87,11 +87,12 @@ public class RobotContainer {
     // make sure that on init the scissors are unarmed
     // m_safety.armScissor(false);
 
-    new JoystickButton(mainJS, 4).whileHeld(new ClimberManual(m_climber, () -> 0, () -> 1));
-    new JoystickButton(mainJS, 2).whileHeld(new ClimberManual(m_climber, () -> 0, () -> -1));
+    new JoystickButton(mainJS, 4).whileHeld(new ClimberManual(m_climber, () -> 1, () -> 1));
+    new JoystickButton(mainJS, 2).whileHeld(new ClimberManual(m_climber, () -> -1, () -> -1));
 
     new JoystickButton(mainJS, 6).whenPressed(new ArmScissors(m_safety, m_base, m_scissorRunner));
-    new JoystickButton(mainJS, 8).whenPressed(new Scissors(m_scissorRunner, () -> getScissorSelectedSpeed(), m_safety));
+    // new JoystickButton(mainJS, 8).whenPressed(new Scissors(m_scissorRunner, () ->
+    // getScissorSelectedSpeed(), m_safety));
 
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
   }
