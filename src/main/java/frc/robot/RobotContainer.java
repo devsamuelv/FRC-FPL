@@ -10,10 +10,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArmScissors;
 import frc.robot.commands.ClimberManual;
+import frc.robot.commands.CollectorManual;
 import frc.robot.commands.ConveyorAutomated;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.LightsController;
 import frc.robot.commands.Scissors;
+import frc.robot.commands.ShooterCloseAutomatic;
+import frc.robot.commands.ShooterFarAutomatic;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
@@ -25,14 +28,14 @@ import frc.robot.subsystems.ScissorRunner;
 
 public class RobotContainer {
   // Subsystems
-  private final Base m_base = new Base();
-  private final Safety m_safety = new Safety();
-  private final Collector m_collector = new Collector();
-  private final ScissorRunner m_scissorRunner = new ScissorRunner();
-  private final Conveyor m_conveyor = new Conveyor();
-  private final Climber m_climber = new Climber();
-  private final Shooter m_shooter = new Shooter();
-  private final Lights m_lights = new Lights();
+  Base m_base = new Base();
+  Safety m_safety = new Safety();
+  Collector m_collector = new Collector();
+  ScissorRunner m_scissorRunner = new ScissorRunner();
+  Conveyor m_conveyor = new Conveyor();
+  Climber m_climber = new Climber();
+  Shooter m_shooter = new Shooter();
+  Lights m_lights = new Lights();
 
   // Auto command setups, per WPI example
   SendableChooser<SequentialCommandGroup> m_chooser = new SendableChooser<>();
@@ -67,40 +70,24 @@ public class RobotContainer {
   public static int climberLeftLowLimitSwitch = 6;
   public static int climberRightLowLimitSwitch = 7;
 
+  public boolean isClimberUp = false;
+
   // Controller Ports
   Joystick mainJS = new Joystick(0);
 
   public RobotContainer() {
-    configureDriverStation();
     configureBaseController();
     configurePassiveCommands();
     configureAutoChooser();
   }
 
-  private void configureDriverStation() {
-    SmartDashboard.putNumber("Scissor Speed (Percent)", 30);
-  }
-
   private void configureBaseController() {
-    SmartDashboard.putNumber("axis's", mainJS.getAxisCount());
-
-    // make sure that on init the scissors are unarmed
-    // m_safety.armScissor(false);
-
-    new JoystickButton(mainJS, 4).whileHeld(new ClimberManual(m_climber, () -> 1, () -> 1));
-    new JoystickButton(mainJS, 2).whileHeld(new ClimberManual(m_climber, () -> -1, () -> -1));
-
-    new JoystickButton(mainJS, 6).whenPressed(new ArmScissors(m_safety, m_base, m_scissorRunner));
-    // new JoystickButton(mainJS, 8).whenPressed(new Scissors(m_scissorRunner, () ->
-    // getScissorSelectedSpeed(), m_safety));
+    new JoystickButton(mainJS, 1).whileHeld(new ClimberManual(m_climber, () -> isClimberUp));
+    new JoystickButton(mainJS, 2).whileHeld(new ShooterFarAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 3).whileHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector));
 
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
-  }
-
-  private double getScissorSelectedSpeed() {
-    double _speed = SmartDashboard.getNumber("Scissor Speed (Percent)", 30);
-
-    return _speed / 100;
   }
 
   private void configurePassiveCommands() {

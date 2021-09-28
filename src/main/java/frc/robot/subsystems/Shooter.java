@@ -26,12 +26,13 @@ public class Shooter extends SubsystemBase {
   public Servo shooterLeftServo = new Servo(RobotContainer.shooterLeftServoPort);
 
   private CANPIDController shooterPIDController;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, closeRPM, midRPM, farRevRPM, farMixRPM, farForRPM, turretPower;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, closeRPM, midRPM, farRevRPM, farMixRPM, farForRPM,
+      turretPower;
 
   public Shooter() {
     shooterFlywheel.setInverted(true);
     shooterPIDController = shooterFlywheel.getPIDController();
-   
+
     kP = 0.0004;
     kI = 6e-7;
     kD = 0.00015;
@@ -39,7 +40,7 @@ public class Shooter extends SubsystemBase {
     kFF = 0.00015;
     kMaxOutput = 1;
     kMinOutput = 0;
-    closeRPM = 4000; 
+    closeRPM = 4000;
     midRPM = 4000;
     farRevRPM = 4400; // Backwards
     farForRPM = 4650; // Forwards
@@ -78,17 +79,18 @@ public class Shooter extends SubsystemBase {
     // double cRPM = SmartDashboard.getNumber("Shooter Flywheel Close RPM: ", 0);
     // double fRPM = SmartDashboard.getNumber("Shooter Flywheel Far RPM: ", 0);
 
-    // // if PID coefficients on SmartDashboard have changed, write new values to controller
+    // // if PID coefficients on SmartDashboard have changed, write new values to
+    // controller
     // if((p != kP)) { shooterPIDController.setP(p); kP = p; }
     // // if((i != kI)) { shooterPIDController.setI(i); kI = i; }
     // if((d != kD)) { shooterPIDController.setD(d); kD = d; }
     // if((iz != kIz)) { shooterPIDController.setIZone(iz); kIz = iz; }
     // if((ff != kFF)) { shooterPIDController.setFF(ff); kFF = ff; }
-    // if((max != kMaxOutput) || (min != kMinOutput)) { 
-    //   shooterPIDController.setOutputRange(min, max); 
-    //   kMinOutput = min; kMaxOutput = max;}
+    // if((max != kMaxOutput) || (min != kMinOutput)) {
+    // shooterPIDController.setOutputRange(min, max);
+    // kMinOutput = min; kMaxOutput = max;}
     // if((cRPM != closeRPM)) { closeRPM = cRPM; }
-    // if((fRPM != farRPM)) { farRPM = fRPM; }  
+    // if((fRPM != farRPM)) { farRPM = fRPM; }
 
     SmartDashboard.putNumber("Shooter Flywheel Power", shooterFlywheel.get());
     SmartDashboard.putNumber("Shooter Flywheel Velocity", shooterFlywheelEncoder.getVelocity());
@@ -108,7 +110,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean getLockonState() {
-    return  -5 < getLimelightXError() || getLimelightXError() < 5;
+    return -5 < getLimelightXError() || getLimelightXError() < 5;
   }
 
   public void setTurretSpeed(double turret_power) {
@@ -116,7 +118,7 @@ public class Shooter extends SubsystemBase {
     shooterTurret.set(turretPower);
   }
 
-  public void setFlywheelSpeed(double flywheelPower) {    
+  public void setFlywheelSpeed(double flywheelPower) {
     shooterFlywheel.set(flywheelPower);
   }
 
@@ -129,7 +131,7 @@ public class Shooter extends SubsystemBase {
 
   public void setServoPos(double pos) {
     shooterRightServo.set(pos);
-    shooterLeftServo.set(1-pos);
+    shooterLeftServo.set(1 - pos);
   }
 
   public double getServoPos() {
@@ -165,9 +167,9 @@ public class Shooter extends SubsystemBase {
   }
 
   public void centerTurret() {
-    if(shooterTurretEncoder.getPosition() < 0)
+    if (shooterTurretEncoder.getPosition() < 0)
       shooterTurret.set(0.5);
     else if (shooterTurretEncoder.getPosition() > 0)
-      shooterTurret.set(-0.5);  
+      shooterTurret.set(-0.5);
   }
 }

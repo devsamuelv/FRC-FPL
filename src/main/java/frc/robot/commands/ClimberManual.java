@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -9,13 +10,11 @@ import frc.robot.subsystems.Climber;
 
 public class ClimberManual extends CommandBase {
   private final Climber m_climber;
-  private DoubleSupplier leftSpeed;
-  private DoubleSupplier rightSpeed;
+  private BooleanSupplier isClimberUp;
 
-  public ClimberManual(Climber subsystem, DoubleSupplier leftStick, DoubleSupplier rightStick) {
+  public ClimberManual(Climber subsystem, BooleanSupplier isClimberUp) {
     m_climber = subsystem;
-    leftSpeed = leftStick;
-    rightSpeed = rightStick;
+    this.isClimberUp = isClimberUp;
 
     addRequirements(m_climber);
   }
@@ -31,19 +30,24 @@ public class ClimberManual extends CommandBase {
     SmartDashboard.putBoolean("Climber Right Low Switch", m_climber.getRightLowLimitSwitch());
     SmartDashboard.putNumber("Climber Left Encoder Value", m_climber.getClimberPos(Constants.leftClimber));
     SmartDashboard.putNumber("Climber Right Encoder Value", m_climber.getClimberPos(Constants.rightClimber));
-    SmartDashboard.putNumber("Climber Right Commanded Value", rightSpeed.getAsDouble());
-    SmartDashboard.putNumber("Climber Left Commanded Value", leftSpeed.getAsDouble());
 
     if (m_climber.getRightLowLimitSwitch())
       m_climber.resetRightClimber();
     if (m_climber.getArmed()) {
       m_climber.setSolenoids(Constants.climbersUnlocked);
 
-      if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 || leftSpeed.getAsDouble() < -0.2
-          || rightSpeed.getAsDouble() < -0.2) {
-        m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
-      } else
-        m_climber.driveClimbers(0, 0);
+      if (isClimberUp.getAsBoolean()) {
+        m_climber.setClimberPos(1);
+      } else if (!isClimberUp.getAsBoolean()) {
+        m_climber.setClimberPos(0);
+      }
+
+      // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||
+      // leftSpeed.getAsDouble() < -0.2
+      // || rightSpeed.getAsDouble() < -0.2) {
+      // m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
+      // } else
+      // m_climber.driveClimbers(0, 0);
     }
   }
 

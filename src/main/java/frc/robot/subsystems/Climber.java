@@ -96,8 +96,6 @@ public class Climber extends SubsystemBase {
     System.out.println("position: " + rightClimberEncoder.getPosition() * 1.0);
     System.out.println("position to: " + right_target_position);
 
-    // System.out.println("k");
-
     if (rightClimberEncoder.getPosition() * 1.0 < right_target_position) {
       rightClimberMotor.set(1);
     } else {
