@@ -39,7 +39,7 @@ public class ClimberManual extends CommandBase {
     if (isClimberUp.getAsBoolean()) {
       m_climber.setClimberPos(1);
     } else if (!isClimberUp.getAsBoolean()) {
-      m_climber.setClimberPos(0);
+      m_climber.setClimberPos(-1);
     }
 
     // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||
