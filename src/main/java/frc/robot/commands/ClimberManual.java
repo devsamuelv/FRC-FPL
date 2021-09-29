@@ -31,24 +31,25 @@ public class ClimberManual extends CommandBase {
     SmartDashboard.putNumber("Climber Left Encoder Value", m_climber.getClimberPos(Constants.leftClimber));
     SmartDashboard.putNumber("Climber Right Encoder Value", m_climber.getClimberPos(Constants.rightClimber));
 
-    if (m_climber.getRightLowLimitSwitch())
-      m_climber.resetRightClimber();
-    if (m_climber.getArmed()) {
-      m_climber.setSolenoids(Constants.climbersUnlocked);
+    // if (m_climber.getRightLowLimitSwitch())
+    // m_climber.resetRightClimber();
+    // if (m_climber.getArmed()) {
+    // m_climber.setSolenoids(Constants.climbersUnlocked);
 
-      if (isClimberUp.getAsBoolean()) {
-        m_climber.setClimberPos(1);
-      } else if (!isClimberUp.getAsBoolean()) {
-        m_climber.setClimberPos(0);
-      }
-
-      // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||
-      // leftSpeed.getAsDouble() < -0.2
-      // || rightSpeed.getAsDouble() < -0.2) {
-      // m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
-      // } else
-      // m_climber.driveClimbers(0, 0);
+    if (isClimberUp.getAsBoolean()) {
+      m_climber.setClimberPos(1);
+    } else if (!isClimberUp.getAsBoolean()) {
+      m_climber.setClimberPos(0);
     }
+
+    // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||
+    // leftSpeed.getAsDouble() < -0.2
+    // || rightSpeed.getAsDouble() < -0.2) {
+    // m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
+    // } else
+    // m_climber.driveClimbers(0, 0);
+    // }
+
   }
 
   // Called once the command ends or is interrupted.

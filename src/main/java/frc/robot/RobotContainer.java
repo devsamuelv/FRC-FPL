@@ -82,7 +82,7 @@ public class RobotContainer {
   }
 
   private void configureBaseController() {
-    new JoystickButton(mainJS, 1).whileHeld(new ClimberManual(m_climber, () -> isClimberUp));
+    new JoystickButton(mainJS, 1).whenPressed(new ClimberManual(m_climber, () -> isClimberUp));
     new JoystickButton(mainJS, 2).whileHeld(new ShooterFarAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 3).whileHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector));
