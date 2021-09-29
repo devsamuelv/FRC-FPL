@@ -70,7 +70,7 @@ public class RobotContainer {
   public static int climberLeftLowLimitSwitch = 6;
   public static int climberRightLowLimitSwitch = 7;
 
-  public boolean isClimberUp = false;
+  public static boolean isClimberUp = false;
 
   // Controller Ports
   Joystick mainJS = new Joystick(0);

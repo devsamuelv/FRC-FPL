@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climber;
 
 public class ClimberManual extends CommandBase {
@@ -38,8 +39,12 @@ public class ClimberManual extends CommandBase {
 
     if (isClimberUp.getAsBoolean()) {
       m_climber.setClimberPos(1);
+
+      RobotContainer.isClimberUp = false;
     } else if (!isClimberUp.getAsBoolean()) {
       m_climber.setClimberPos(-1);
+
+      RobotContainer.isClimberUp = true;
     }
 
     // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||
