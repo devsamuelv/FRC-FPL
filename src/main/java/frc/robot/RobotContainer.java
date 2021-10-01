@@ -17,6 +17,7 @@ import frc.robot.commands.LightsController;
 import frc.robot.commands.Scissors;
 import frc.robot.commands.ShooterCloseAutomatic;
 import frc.robot.commands.ShooterFarAutomatic;
+import frc.robot.commands.TurretMove;
 import frc.robot.subsystems.Base;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Collector;
@@ -86,6 +87,8 @@ public class RobotContainer {
     new JoystickButton(mainJS, 2).whileHeld(new ShooterFarAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 3).whileHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
     new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector));
+    new JoystickButton(mainJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
+    new JoystickButton(mainJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
 
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
   }
