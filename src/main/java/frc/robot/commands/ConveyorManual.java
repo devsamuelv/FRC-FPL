@@ -19,12 +19,11 @@ public class ConveyorManual extends CommandBase {
 
   @Override
   public void execute() {
-    if(m_conveyor.getMagazineCapacity()) {
+    if (m_conveyor.getMagazineCapacity()) {
       m_conveyor.setConveyorSpeed(0);
     } else {
       m_conveyor.setConveyorSpeed(Constants.conveyorSpeed);
     }
-
   }
 
   @Override

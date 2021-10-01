@@ -22,7 +22,6 @@ public class Collector extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Collector Power", collector.get());
     SmartDashboard.putNumber("Collector Velocity: ", collectorEncoder.getVelocity());
-    // SmartDashboard.putBoolean("Collector Solenoid", collectorExtendSol.get());
   }
 
   public void setCollectorSpeed(double collector_power) {
