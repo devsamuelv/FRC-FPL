@@ -16,6 +16,7 @@ public class TurretMove extends CommandBase {
   public TurretMove(DoubleSupplier power, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.power = power;
+    this.shooter = shooter;
     addRequirements(shooter);
   }
 
@@ -35,6 +36,7 @@ public class TurretMove extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.shooter.setTurretSpeed(0.0);
   }
 
   // Returns true when the command should end.
