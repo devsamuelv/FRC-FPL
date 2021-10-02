@@ -37,14 +37,14 @@ public class ClimberManual extends CommandBase {
     // if (m_climber.getArmed()) {
     // m_climber.setSolenoids(Constants.climbersUnlocked);
 
-    if (isClimberUp.getAsBoolean()) {
-      m_climber.setClimberPos(1);
-
-      RobotContainer.isClimberUp = false;
-    } else if (!isClimberUp.getAsBoolean()) {
-      m_climber.setClimberPos(-1);
+    if (!isClimberUp.getAsBoolean()) {
+      m_climber.setClimberPos(Constants.climberTop);
 
       RobotContainer.isClimberUp = true;
+    } else {
+      m_climber.setClimberPos(0);
+
+      RobotContainer.isClimberUp = false;
     }
 
     // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||

@@ -10,14 +10,14 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ScissorRunner extends SubsystemBase {
-  CANSparkMax scissors = new CANSparkMax(13, MotorType.kBrushed);
+  // CANSparkMax scissors = new CANSparkMax(13, MotorType.kBrushed);
 
   /** Creates a new scissors. */
   public ScissorRunner() {
   }
 
   public void runScissors(double _power) {
-    this.scissors.set(_power);
+    // this.scissors.set(_power);
   }
 
   @Override

@@ -14,7 +14,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase {
-  public CANSparkMax shooterTurret = new CANSparkMax(RobotContainer.shooterRotateCANID, MotorType.kBrushed);
+  public CANSparkMax shooterTurret = new CANSparkMax(60, MotorType.kBrushed);
   public CANSparkMax shooterFlywheel = new CANSparkMax(RobotContainer.shooterFlywheelCANID, MotorType.kBrushless);
 
   public double shooterLimelight = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
@@ -114,8 +114,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setTurretSpeed(double turret_power) {
-    turretPower = turret_power * Constants.shooterTurretMotorGain;
-    shooterTurret.set(turretPower);
+    // turretPower = turret_power * Constants.shooterTurretMotorGain;
+    shooterTurret.set(turret_power);
   }
 
   public void setFlywheelSpeed(double flywheelPower) {

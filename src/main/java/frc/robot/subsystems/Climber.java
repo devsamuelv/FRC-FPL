@@ -20,10 +20,11 @@ public class Climber extends SubsystemBase {
   // DigitalInput(RobotContainer.climberLeftLowLimitSwitch);
   private DigitalInput rightLowLimitSwitch = new DigitalInput(RobotContainer.climberRightLowLimitSwitch);
 
-  private CANSparkMax leftClimberMotor = new CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
+  // private CANSparkMax leftClimberMotor = new
+  // CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
   private CANSparkMax rightClimberMotor = new CANSparkMax(RobotContainer.climberRightCANID, MotorType.kBrushless);
 
-  private CANEncoder leftClimberEncoder = new CANEncoder(leftClimberMotor);
+  // private CANEncoder leftClimberEncoder = new CANEncoder(leftClimberMotor);
   private CANEncoder rightClimberEncoder = new CANEncoder(rightClimberMotor);
 
   private boolean armed = true;
@@ -125,7 +126,7 @@ public class Climber extends SubsystemBase {
     // else
 
     rightClimberMotor.set(rightSpeed);
-    leftClimberMotor.set(leftSpeed);
+    // leftClimberMotor.set(leftSpeed);
   }
 
   // Returns the encoder position of the specified climber motor; true = left,

@@ -49,7 +49,7 @@ public class RobotContainer {
   public static int baseLeftBackCANID = 41; // Brushless
   public static int collectorRollerCANID = 20; // Brushless
   public static int conveyorBeltCANID = 12; // Brushless
-  public static int shooterRotateCANID = 60; // Brushed
+  // public static int shooterRotateCANID = 60; // Brushed
   public static int shooterFlywheelCANID = 61; // Brushless
   public static int climberLeftCANID = 21; // Brushless
   public static int climberRightCANID = 10; // Brushless
@@ -84,9 +84,9 @@ public class RobotContainer {
 
   private void configureBaseController() {
     new JoystickButton(mainJS, 1).whenPressed(new ClimberManual(m_climber, () -> isClimberUp));
-    new JoystickButton(mainJS, 2).whileHeld(new ShooterFarAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(mainJS, 3).whileHeld(new ShooterCloseAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector));
+    new JoystickButton(mainJS, 2).toggleWhenPressed(new ShooterFarAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 3).toggleWhenPressed(new ShooterCloseAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector, m_conveyor));
     new JoystickButton(mainJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
     new JoystickButton(mainJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
 
