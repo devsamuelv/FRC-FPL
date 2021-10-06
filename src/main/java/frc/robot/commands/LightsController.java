@@ -27,7 +27,7 @@ public class LightsController extends CommandBase {
     // } else if (m_conveyor.getBreakbeam())
     // m_lights.setLights(Constants.lightsYellow);
     // else
-    m_lights.setLights(800);
+    m_lights.setLights(-0.99);
   }
 
   @Override
