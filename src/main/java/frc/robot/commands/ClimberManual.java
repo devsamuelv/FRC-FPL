@@ -11,11 +11,11 @@ import frc.robot.subsystems.Climber;
 
 public class ClimberManual extends CommandBase {
   private final Climber m_climber;
-  private BooleanSupplier isClimberUp;
+  private DoubleSupplier rightSpeed;
 
-  public ClimberManual(Climber subsystem, BooleanSupplier isClimberUp) {
-    m_climber = subsystem;
-    this.isClimberUp = isClimberUp;
+  public ClimberManual(Climber subsystem, DoubleSupplier rightSpeed) {
+    this.m_climber = subsystem;
+    this.rightSpeed = rightSpeed;
 
     addRequirements(m_climber);
   }
@@ -29,32 +29,23 @@ public class ClimberManual extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putBoolean("Climber Right Low Switch", m_climber.getRightLowLimitSwitch());
-    SmartDashboard.putNumber("Climber Left Encoder Value", m_climber.getClimberPos(Constants.leftClimber));
-    SmartDashboard.putNumber("Climber Right Encoder Value", m_climber.getClimberPos(Constants.rightClimber));
+    SmartDashboard.putNumber("Climber Left Encoder Value", m_climber.getClimberPos());
+    SmartDashboard.putNumber("Climber Right Encoder Value", m_climber.getClimberPos());
+    m_climber.setArmed(true);
 
-    // if (m_climber.getRightLowLimitSwitch())
-    // m_climber.resetRightClimber();
-    // if (m_climber.getArmed()) {
-    // m_climber.setSolenoids(Constants.climbersUnlocked);
+    if (m_climber.getRightLowLimitSwitch())
+      m_climber.resetRightClimber();
+    if (m_climber.getArmed()) {
+      m_climber.setSolenoids(Constants.climbersUnlocked);
 
-    if (!isClimberUp.getAsBoolean()) {
-      m_climber.setClimberPos(Constants.climberTop);
+      m_climber.driveClimbers(0, rightSpeed.getAsDouble());
 
-      RobotContainer.isClimberUp = true;
-    } else {
-      m_climber.setClimberPos(0);
-
-      RobotContainer.isClimberUp = false;
+      // if (m_climber.getClimberPos() == 208) {
+      // m_climber.setClimberPos(0);
+      // } else if (m_climber.getClimberPos() <= 2) {
+      // m_climber.setClimberPos(208);
+      // }
     }
-
-    // if (leftSpeed.getAsDouble() > 0.2 || rightSpeed.getAsDouble() > 0.2 ||
-    // leftSpeed.getAsDouble() < -0.2
-    // || rightSpeed.getAsDouble() < -0.2) {
-    // m_climber.driveClimbers(leftSpeed.getAsDouble(), rightSpeed.getAsDouble());
-    // } else
-    // m_climber.driveClimbers(0, 0);
-    // }
-
   }
 
   // Called once the command ends or is interrupted.

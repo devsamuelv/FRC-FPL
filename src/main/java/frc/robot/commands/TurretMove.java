@@ -16,6 +16,7 @@ public class TurretMove extends CommandBase {
   public TurretMove(DoubleSupplier power, Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.power = power;
+    this.shooter = shooter;
     addRequirements(shooter);
   }
 

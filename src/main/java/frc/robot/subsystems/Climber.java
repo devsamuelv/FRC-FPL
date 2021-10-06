@@ -49,14 +49,8 @@ public class Climber extends SubsystemBase {
   // false = right;
   public boolean setClimberPos(double right_target_position) {
     boolean rightdone = false;
-    SmartDashboard.putNumber("Climber Left Encoder Value", getClimberPos(Constants.leftClimber));
-    SmartDashboard.putNumber("Climber Right Encoder Value", getClimberPos(Constants.rightClimber));
-    // if (leftClimberEncoder.getPosition() > left_target_position) {
-    // leftClimberMotor.set(-1);
-    // } else {
-    // leftClimberMotor.set(0);
-    // leftdone = true;
-    // }
+    SmartDashboard.putNumber("Climber Left Encoder Value", getClimberPos());
+    SmartDashboard.putNumber("Climber Right Encoder Value", getClimberPos());
 
     System.out.println("switch: " + rightLowLimitSwitch.get());
     System.out.println("position: " + rightClimberEncoder.getPosition());
@@ -84,14 +78,8 @@ public class Climber extends SubsystemBase {
   // NOT CONNECTED TO CONTROLLER
   public boolean setClimberPosDown(double right_target_position) {
     boolean rightdone = false;
-    SmartDashboard.putNumber("Climber Left Encoder Value", getClimberPos(Constants.leftClimber));
-    SmartDashboard.putNumber("Climber Right Encoder Value", getClimberPos(Constants.rightClimber));
-    // if (leftClimberEncoder.getPosition() > left_target_position) {
-    // leftClimberMotor.set(-1);
-    // } else {
-    // leftClimberMotor.set(0);
-    // leftdone = true;
-    // }
+    SmartDashboard.putNumber("Climber Left Encoder Value", getClimberPos());
+    SmartDashboard.putNumber("Climber Right Encoder Value", getClimberPos());
 
     System.out.println("switch: " + rightLowLimitSwitch.get());
     System.out.println("position: " + rightClimberEncoder.getPosition() * 1.0);
@@ -110,28 +98,12 @@ public class Climber extends SubsystemBase {
   // USED
   // Drive the climber motors seperately at the speeds input
   public void driveClimbers(double leftSpeed, double rightSpeed) {
-    // if (leftSpeed < 0)
-    // leftSpeed = -leftSpeed * leftSpeed;
-    // else
-    // leftSpeed = leftSpeed * leftSpeed;
-    // if (rightSpeed < 0)
-    // rightSpeed = -rightSpeed * rightSpeed;
-    // else
-    // rightSpeed = rightSpeed * rightSpeed;
-
-    // if ((rightSpeed > 0 && getRightLowLimitSwitch())
-    // || (rightSpeed < 0 && (getClimberPos(Constants.rightClimber) <
-    // Constants.climberMax)))
-    // rightClimberMotor.set(0);
-    // else
-
     rightClimberMotor.set(rightSpeed);
-    // leftClimberMotor.set(leftSpeed);
   }
 
   // Returns the encoder position of the specified climber motor; true = left,
   // false = right
-  public double getClimberPos(boolean motor) {
+  public double getClimberPos() {
     return rightClimberMotor.getEncoder().getPosition();
   }
 

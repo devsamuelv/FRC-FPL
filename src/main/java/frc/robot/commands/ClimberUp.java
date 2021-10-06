@@ -32,7 +32,7 @@ public class ClimberUp extends CommandBase {
     } else if (climbPos == 3) { // Climb To Right
       done = m_climber.setClimberPos(Constants.climberMax);
     } else if (climbPos == 4) { // Climb
-      done = m_climber.setClimberPos(m_climber.getClimberPos(Constants.rightClimber) + 50);
+      done = m_climber.setClimberPos(m_climber.getClimberPos() + 50);
     }
   }
 

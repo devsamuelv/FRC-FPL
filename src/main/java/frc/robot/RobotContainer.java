@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,6 +41,7 @@ public class RobotContainer {
 
   // Auto command setups, per WPI example
   SendableChooser<SequentialCommandGroup> m_chooser = new SendableChooser<>();
+  Timer climberTimer = new Timer();
   // SendableChooser<Double> m_scissorSpeed = new SendableChooser<Double>();
 
   // CAN IDs
@@ -73,8 +75,15 @@ public class RobotContainer {
 
   public static boolean isClimberUp = false;
 
+  // new bot tower, shooter
+  // new bot base, everything else
+
+  // tower shooters, climbers
+  // base everything else
+
   // Controller Ports
   Joystick mainJS = new Joystick(0);
+  Joystick towerJS = new Joystick(1);
 
   public RobotContainer() {
     configureBaseController();
@@ -82,14 +91,32 @@ public class RobotContainer {
     configureAutoChooser();
   }
 
-  private void configureBaseController() {
-    new JoystickButton(mainJS, 1).whenPressed(new ClimberManual(m_climber, () -> isClimberUp));
-    new JoystickButton(mainJS, 2).toggleWhenPressed(new ShooterFarAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(mainJS, 3).toggleWhenPressed(new ShooterCloseAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector, m_conveyor));
-    new JoystickButton(mainJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
-    new JoystickButton(mainJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
+  private double getClimberSpeed() {
+    boolean isUp = m_climber.getClimberPos() == 205;
+    boolean isDown = m_climber.getClimberPos() == 0;
 
+    if (isUp) {
+      return -0.5;
+    }
+
+    if (isDown) {
+      return 0.5;
+    }
+
+    return 0.0;
+  }
+
+  private void configureBaseController() {
+    // Tower
+    new JoystickButton(towerJS, 1).whileHeld(new ClimberManual(m_climber, () -> -1));
+    new JoystickButton(towerJS, 2).whileHeld(new ClimberManual(m_climber, () -> 1));
+    new JoystickButton(towerJS, 3).toggleWhenPressed(new ShooterFarAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(towerJS, 4).toggleWhenPressed(new ShooterCloseAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(towerJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
+    new JoystickButton(towerJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
+
+    // Base
+    new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector, m_conveyor));
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
   }
 
