@@ -53,7 +53,7 @@ public class RobotContainer {
   public static int conveyorBeltCANID = 12; // Brushless
   // public static int shooterRotateCANID = 60; // Brushed
   public static int shooterFlywheelCANID = 61; // Brushless
-  public static int climberLeftCANID = 21; // Brushless
+  //public static int climberLeftCANID = 21; // Brushless
   public static int climberRightCANID = 10; // Brushless
   public static int panelSpinnerCANID = 30; // Brushed
 
