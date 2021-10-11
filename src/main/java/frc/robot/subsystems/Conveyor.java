@@ -11,21 +11,25 @@ import frc.robot.RobotContainer;
 
 public class Conveyor extends SubsystemBase {
   public CANSparkMax conveyorMotor = new CANSparkMax(RobotContainer.conveyorBeltCANID, MotorType.kBrushless);
-  public DigitalInput breakbeam1 = new DigitalInput(RobotContainer.breakbeam1DIOPort);
+  public DigitalInput breakbeam1 = new DigitalInput(4);
   public DigitalInput breakbeam2 = new DigitalInput(RobotContainer.breakbeam2DIOPort);
   public DigitalInput breakbeam3 = new DigitalInput(RobotContainer.breakbeam3DIOPort);
   public CANEncoder conveyorEncoder = new CANEncoder(conveyorMotor);
 
   public Conveyor() {
+    // conveyorMotor.set(0);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Conveyor Max Capacity", getMagazineCapacity());
+    SmartDashboard.putBoolean("breakbeam 1", breakbeam1.get());
+    SmartDashboard.putBoolean("breakbeam 2", breakbeam2.get());
+    SmartDashboard.putBoolean("breakbeam 3", breakbeam3.get());
   }
 
   public boolean getBreakbeam() {
-    return !breakbeam1.get() || !breakbeam2.get();
+    return false;// !breakbeam1.get();
   }
 
   public boolean getMagazineCapacity() {

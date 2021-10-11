@@ -16,12 +16,10 @@ public class Climber extends SubsystemBase {
   // private Solenoid leftHoldClamp = new
   // Solenoid(RobotContainer.climberLeftSolPort);
 
-  // private DigitalInput leftLowLimitSwitch = new
-  // DigitalInput(RobotContainer.climberLeftLowLimitSwitch);
+  private DigitalInput leftLowLimitSwitch = new DigitalInput(RobotContainer.climberLeftLowLimitSwitch);
   private DigitalInput rightLowLimitSwitch = new DigitalInput(RobotContainer.climberRightLowLimitSwitch);
 
-  // private CANSparkMax leftClimberMotor = new
-  // CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
+  private CANSparkMax leftClimberMotor = new CANSparkMax(RobotContainer.climberLeftCANID, MotorType.kBrushless);
   private CANSparkMax rightClimberMotor = new CANSparkMax(RobotContainer.climberRightCANID, MotorType.kBrushless);
 
   // private CANEncoder leftClimberEncoder = new CANEncoder(leftClimberMotor);
