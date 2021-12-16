@@ -25,7 +25,7 @@ public class Conveyor extends SubsystemBase {
   }
 
   public boolean getBreakbeam() {
-    return !breakbeam1.get() || !breakbeam2.get();
+    return false;
   }
 
   public boolean getMagazineCapacity() {

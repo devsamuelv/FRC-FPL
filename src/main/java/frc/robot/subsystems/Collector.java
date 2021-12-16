@@ -25,8 +25,8 @@ public class Collector extends SubsystemBase {
   }
 
   public void setCollectorSpeed(double collector_power) {
-    collectorPower = collector_power * Constants.collectorMotorGain;
-    collector.set(collectorPower);
+    // collectorPower = collector_power * Constants.collectorMotorGain;
+    collector.set(collector_power);
   }
 
   public void setCollectorExtendSol(boolean extend) {

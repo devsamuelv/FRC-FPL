@@ -28,9 +28,13 @@ public class DriveManual extends CommandBase {
     SmartDashboard.putNumber("leftJS", leftJSValue.getAsDouble());
     SmartDashboard.putNumber("rightJS", rightJSValue.getAsDouble());
 
-    if (leftJSValue.getAsDouble() < 0.3 && rightJSValue.getAsDouble() < 0.3) {
+    // if (leftJSValue.getAsDouble() > 0.3 && rightJSValue.getAsDouble() > 0.3) {
       m_base.tankDriveByJoystick(leftJSValue.getAsDouble(), rightJSValue.getAsDouble());
-    }
+    // }
+  
+    // if (leftJSValue.getAsDouble() < -0.3 && rightJSValue.getAsDouble() < -0.3) {
+    //   m_base.tankDriveByJoystick(leftJSValue.getAsDouble(), rightJSValue.getAsDouble());
+    // }
   }
 
   @Override

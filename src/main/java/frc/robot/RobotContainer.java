@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArmScissors;
 import frc.robot.commands.ClimberManual;
 import frc.robot.commands.CollectorManual;
+import frc.robot.commands.CollectorReverse;
 import frc.robot.commands.ConveyorAutomated;
 import frc.robot.commands.DriveManual;
 import frc.robot.commands.LightsController;
@@ -115,8 +116,9 @@ public class RobotContainer {
     new JoystickButton(towerJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
     new JoystickButton(towerJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
 
-    // Base
-    new JoystickButton(mainJS, 5).whileHeld(new CollectorManual(m_collector, m_conveyor));
+    // Base   
+    new JoystickButton(towerJS, 5).whileHeld(new CollectorManual(m_collector, m_conveyor));
+    new JoystickButton(towerJS, 6).whileHeld(new CollectorReverse(m_collector, m_conveyor));
     m_base.setDefaultCommand(new DriveManual(m_base, () -> mainJS.getRawAxis(1), () -> mainJS.getRawAxis(3)));
   }
 

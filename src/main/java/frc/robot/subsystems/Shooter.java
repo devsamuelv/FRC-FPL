@@ -41,7 +41,8 @@ public class Shooter extends SubsystemBase {
     kMinOutput = 0;
     closeRPM = 4000;
     midRPM = 4000;
-    farRevRPM = 4400; // Backwards
+    // farRevRPM = 4400; // Backwards
+    farRevRPM = 2400; // Backwards
     farForRPM = 4650; // Forwards
     farMixRPM = 4550; // Mix
 
