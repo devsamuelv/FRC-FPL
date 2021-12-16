@@ -54,7 +54,7 @@ public class RobotContainer {
   public static int conveyorBeltCANID = 12; // Brushless
   // public static int shooterRotateCANID = 60; // Brushed
   public static int shooterFlywheelCANID = 61; // Brushless
-  //public static int climberLeftCANID = 21; // Brushless
+  public static int climberLeftCANID = 21; // Brushless
   public static int climberRightCANID = 10; // Brushless
   public static int panelSpinnerCANID = 30; // Brushed
 
@@ -109,12 +109,12 @@ public class RobotContainer {
 
   private void configureBaseController() {
     // Tower
-    new JoystickButton(towerJS, 1).whileHeld(new ClimberManual(m_climber, () -> -1));
-    new JoystickButton(towerJS, 2).whileHeld(new ClimberManual(m_climber, () -> 1));
-    new JoystickButton(towerJS, 3).toggleWhenPressed(new ShooterFarAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(towerJS, 4).toggleWhenPressed(new ShooterCloseAutomatic(m_shooter, m_conveyor));
-    new JoystickButton(towerJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
-    new JoystickButton(towerJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
+    new JoystickButton(mainJS, 1).whileHeld(new ClimberManual(m_climber, () -> -1));
+    new JoystickButton(mainJS, 2).whileHeld(new ClimberManual(m_climber, () -> 1));
+    new JoystickButton(mainJS, 3).toggleWhenPressed(new ShooterFarAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 4).toggleWhenPressed(new ShooterCloseAutomatic(m_shooter, m_conveyor));
+    new JoystickButton(mainJS, 7).whileHeld(new TurretMove(() -> 1.0, m_shooter));
+    new JoystickButton(mainJS, 8).whileHeld(new TurretMove(() -> -1.0, m_shooter));
 
     // Base   
     new JoystickButton(towerJS, 5).whileHeld(new CollectorManual(m_collector, m_conveyor));
@@ -123,7 +123,7 @@ public class RobotContainer {
   }
 
   private void configurePassiveCommands() {
-    m_conveyor.setDefaultCommand(new ConveyorAutomated(m_conveyor));
+    // m_conveyor.setDefaultCommand(new ConveyorAutomated(m_conveyor));
     m_lights.setDefaultCommand(new LightsController(m_lights, m_conveyor));
   }
 

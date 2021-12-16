@@ -11,11 +11,11 @@ import frc.robot.subsystems.Climber;
 
 public class ClimberManual extends CommandBase {
   private final Climber m_climber;
-  private DoubleSupplier rightSpeed;
+  private DoubleSupplier speed;
 
-  public ClimberManual(Climber subsystem, DoubleSupplier rightSpeed) {
+  public ClimberManual(Climber subsystem, DoubleSupplier speed) {
     this.m_climber = subsystem;
-    this.rightSpeed = rightSpeed;
+    this.speed = speed;
 
     addRequirements(m_climber);
   }
@@ -38,7 +38,9 @@ public class ClimberManual extends CommandBase {
     if (m_climber.getArmed()) {
       m_climber.setSolenoids(Constants.climbersUnlocked);
 
-      m_climber.driveClimbers(0, rightSpeed.getAsDouble());
+      if (speed.getAsDouble() < -0.1) {
+        m_climber.driveClimbers(speed.getAsDouble(), speed.getAsDouble());
+      }
 
       // if (m_climber.getClimberPos() == 208) {
       // m_climber.setClimberPos(0);

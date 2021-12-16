@@ -30,7 +30,7 @@ public class ShooterFarAutomatic extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setServoPos(Constants.shooterRevFarPos);
+    m_shooter.setServoPos(/* Constants.shooterRevFarPos */1);
     stage = Stage.SPIN_UP;
     m_timer.start();
     timer2.start();
